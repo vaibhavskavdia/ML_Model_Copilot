@@ -27,12 +27,7 @@ class DataIngestion:
             raise ValueError(f"Missing required columns: {missing_cols}")
     
     def create_sentiment_label(self, df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Convert rating into binary sentiment
-        rating >= 7 -> positive (1)
-        rating <= 4 -> negative (0)
-        ratings 5,6 are dropped
-        """
+        """Convert rating into binary sentiment rating >= 7 -> positive (1),rating <= 4 -> negative (0),ratings 5,6 are dropped"""
         df = df[["text", "rating"]].copy()
 
         df = df.dropna(subset=["text", "rating"])
@@ -51,9 +46,9 @@ class DataIngestion:
         return df
     
     def basic_quality_checks(self, df: pd.DataFrame):
-        """
-        Perform basic data quality checks
-        """
+        
+        #Perform basic data quality checks
+        
         if df.empty:
             raise ValueError("Dataset is empty after preprocessing")
 
@@ -65,18 +60,17 @@ class DataIngestion:
 
     
     def save_processed_data(self, df: pd.DataFrame) -> str:
-        """
-        Save processed dataset snapshot
-        """
+        
+        #Save processed dataset snapshot
         output_path = os.path.join(self.processed_dir, "drug_reviews_processed_v1.csv")
         df.to_csv(output_path, index=False)
         return output_path
 
     
     def run(self) -> str:
-        """
-        Execute full ingestion pipeline
-        """
+        
+        #Execute full ingestion pipeline
+        
         df = self.load_raw_data()
         self.validate_schema(df)
         df = self.create_sentiment_label(df)
