@@ -1,15 +1,22 @@
-import logging 
+import logging
 import os
 from datetime import datetime
 
-LOG_FILE=f"{datetime.now().strftime('%m_%d_%Y%H_%M_%S')}.log"
-log_path=os.path.join(os.getcwd(),"logs",LOG_FILE)
-os.makedirs(log_path,exist_ok=True)
+# Log directory
+LOG_DIR = os.path.join(os.getcwd(), "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
 
-LOG_FILE_path=os.path.join(log_path,LOG_FILE)
+# Log file name
+LOG_FILE = f"{datetime.now().strftime('%d_%m_%Y_%H_%M_%S')}.log"
+LOG_FILE_PATH = os.path.join(LOG_DIR, LOG_FILE)
 
+# Logging configuration
 logging.basicConfig(
-    filename=LOG_FILE_path,
-    format="[%(asctime)s]%(lineno)d%(name)s-%(levelname)s-%(message)s",
-    level=logging.INFO
+    filename=LOG_FILE_PATH,
+    format="%(asctime)s - %(lineno)d - %(name)s - %(levelname)s - %(message)s",
+    level=logging.INFO,
+    force=True   # 🔥 VERY IMPORTANT
 )
+
+# Create logger object
+logger = logging.getLogger("ML_Model_Copilot")
