@@ -18,11 +18,11 @@ class TextProcessing:
         self.stopwords=set(stopwords.words("english"))
         self.stopwords -={'no','not','nor','never'}
         self.lemmatizer=WordNetLemmatizer()
-        print("1")
+        
     def load_data(self)-> pd.DataFrame:
         df=pd.read_csv("/Users/vaibhavkavdia/Desktop/Projects_for_Resume/AI/ML-Model_Copilot/src/ML_Model_Copilot/data/processed/drug_reviews_processed_v1.csv")
         logger.info(f"Loaded dataset with {len(df)} rows")
-        print("2")
+        
         return df
 
     def clean_text(self,review:str):
@@ -30,7 +30,7 @@ class TextProcessing:
         review=re.sub(r"<.*?>", " ", review)#removing html tags 
         review=re.sub(r"[^a-z0-9\s]"," ",review) #removes punctuation
         review=re.sub(r"\s+"," ",review).strip()#normalizes whitespace
-        print("3")
+        
         return review
     
     def tokenize_and_lemmatize(self,review:str)->str:
@@ -41,7 +41,7 @@ class TextProcessing:
                 lemma=self.lemmatizer.lemmatize(token)
                 cleaned_tokens.append(lemma)
         return " ".join(cleaned_tokens)
-        print("4")    
+            
     def preprocess(self,df:pd.DataFrame)->pd.DataFrame:
         df=df.copy()
         initial_rows=len(df)
@@ -60,17 +60,17 @@ class TextProcessing:
         logger.info(f"Rows after preprocessing: {final_rows}")
         logger.info(f"Rows dropped: {dropped_rows}")
         logger.info(f"Average text length after cleaning: {average_text_after:.2f}")
-        print("5")
+        
         return df[["clean_text", "sentiment"]]  #returns model ready features
     
     def save_data(self,df:pd.DataFrame):
         df.to_csv(self.output_path,index=False)
         logger.info(f"Preprocessed data saved at {self.output_path}")
-        print("6")
+        
     def run(self):
         df = self.load_data()
         df_processed = self.preprocess(df)
         self.save_data(df_processed)
-        print("7")
+        
 
         
