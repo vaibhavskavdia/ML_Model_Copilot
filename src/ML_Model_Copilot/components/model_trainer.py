@@ -5,16 +5,18 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score,classification_report
-from src.ML_Model_Copilot.logger import logger
+from logger import logger
+from sklearn.svm import LinearSVC
 
 class Model_Selection:
     def __init__(self,artifacts_dir:str):
         self.artifacts_dir=artifacts_dir
         self.X_path=os.path.join(artifacts_dir,"X_tfidf_vectorizer_v1.pkl")
         self.y_path=os.path.join(artifacts_dir,"y_labels_v1.pkl")
-        self.model_path=os.path.join(artifacts_dir,"logistic_regression_v1.pkl")
-        self.model=LogisticRegression(max_iter=1000,n_jobs=-1,class_weight="balanced")
-        
+        self.model_path1=os.path.join(artifacts_dir,"logistic_regression_v1.pkl")
+        self.model_path2=os.path.join(artifacts_dir,"linear_SVC_v1.pkl")
+        self.model1=LogisticRegression(max_iter=1000,n_jobs=-1,class_weight="balanced")
+        self.model2=LinearSVC(max_iter=1000,class_weight="balanced",random_state=42)
     def load_features(self):
         logger.info("loading tf-idf vectors and labels")
         X=joblib.load(self.X_path)
@@ -23,21 +25,21 @@ class Model_Selection:
     
     def train(self,X_train,y_train):
        logger.info("training regression model")
-       self.model.fit(X_train,y_train) 
+       self.model2.fit(X_train,y_train) 
        
     def evaluation(self,X_val,y_val):
         logger.info("evaluating the metrics results")
-        y_pred=self.model.predict(X_val)
+        y_pred=self.model2.predict(X_val)
         
         acc=accuracy_score(y_val,y_pred)
-        logger.info(f"accuracy of the model is {acc:.4f}")
+        logger.info(f"accuracy of the {self.model2}model is {acc:.4f}")
         
         class_metrics=classification_report(y_val,y_pred)
-        logger.info(f"Classification Report:\n" + class_metrics)
+        logger.info(f"Classification Report of {self.model2} is:\n" + class_metrics)
         
     def save_model(self):
-        joblib.dump(self.model,self.model_path)
-        logger.info(f"model savex at {self.model_path}")
+        joblib.dump(self.model2,self.model_path2)
+        logger.info(f"{{self.model2}}model saved at {self.model_path2}")
         
     def run(self):
         X,y=self.load_features()

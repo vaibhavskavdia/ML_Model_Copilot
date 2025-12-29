@@ -5,7 +5,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-from src.ML_Model_Copilot.logger import logger
+from logger import logger
 #import logging
 #nltk.download("stopwords")
 #nltk.download("wordnet")
