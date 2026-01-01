@@ -4,6 +4,9 @@ from src.ML_Model_Copilot.components.feature_engineering import FeatureExtractio
 from src.ML_Model_Copilot.components.model_trainer import Model_Selection
 from src.ML_Model_Copilot.genai.error_analyser import ErrorAnalyzer
 from src.ML_Model_Copilot.pipelines.inference_pipeline import Sentiment_Inference
+from src.ML_Model_Copilot.genai.llm_explainer import llm_explainer
+from src.ML_Model_Copilot.genai.llm_explainer import DummyLLMClient
+
 raw_data_path="/Users/vaibhavkavdia/Desktop/Projects_for_Resume/AI/ML-Model_Copilot/drug_data/drugTrain_raw.tsv"
 processed_dir = "/Users/vaibhavkavdia/Desktop/Projects_for_Resume/AI/ML-Model_Copilot/src/ML_Model_Copilot/data/processed/"
 #Ingestion=DataIngestion(raw_data_path,processed_dir)
@@ -31,8 +34,18 @@ def main():
         model_path=model2_path)
     
     sample_text = """The medicine reduced my headache significantly but caused mild nausea."""
-    result = inferencer.predict(sample_text)
-    print(result)
+    prediction = inferencer.predict(sample_text)
+    print(prediction)
+    explainer = llm_explainer(DummyLLMClient())
+    explanation = explainer.explain(
+        original_text=sample_text,
+        sentiment=prediction["sentiment"],
+        score=prediction["score"]
+    )
+
+    print("Prediction:", prediction)
+    print("Explanation:", explanation)
+    
     
     
 if __name__=="__main__":
