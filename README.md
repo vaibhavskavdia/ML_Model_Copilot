@@ -70,7 +70,7 @@ GenAI Explanation
 Screenshots:
 
 <p align="center">
-  <img src="/Users/vaibhavkavdia/Desktop/medical_bot_ss.png" width="600">
+  <img src="/Users/vaibhavkavdia/Desktop/Projects_for_Resume/AI/ML-Model_Copilot/assests/medical_bot_ss.png" width="600">
 </p>
 
 ---
