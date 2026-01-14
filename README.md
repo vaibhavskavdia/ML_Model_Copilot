@@ -70,8 +70,7 @@ GenAI Explanation
 Screenshots:
 
 <p align="center">
-  <img src="/var/folders/zl/csm4ljzx70jgj2wllb_nlz2c0000gn/T/TemporaryItems/NSIRD_screencaptureui_t6sE0g/Screenshot 2
-026-01-14 at 7.06.33 PM.png'" width="600">
+  <img src="/Users/vaibhavkavdia/Desktop/medical_bot_ss" width="600">
 </p>
 
 ---
@@ -82,13 +81,13 @@ Screenshots:
 docker build -t medical-sentiment-app .
 docker run -p 8501:8501 medical-sentiment-app
 
-then open:
+#then open:
 
 http://localhost:8501
 
 locally run:
 pip install -r requirements.txt
-python app.py
+python app.py```
 
 
 Project Structure
