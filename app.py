@@ -33,7 +33,7 @@ def main():
         vectorizer_path="artifacts/tf_idf_vectorizer_v1.pkl",
         model_path=model2_path)
     
-    sample_text = """The medicine reduced my headache significantly but caused mild nausea."""
+    sample_text = """the mdicine was very useful and cured my headache but caused mild nausea"""
     prediction = inferencer.predict(sample_text)
     print(prediction)
     explainer = llm_explainer(DummyLLMClient())

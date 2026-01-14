@@ -32,7 +32,7 @@ list_of_files=[
     "artifacts/",
     "app.py",
     f"tests/",
-    f"docker/Dockerfile",
+    f"Dockerfile",
     "requirement.txt",
     "setup.py",
     

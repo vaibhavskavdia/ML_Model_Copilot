@@ -3,7 +3,7 @@ import joblib as jb
 from sklearn.feature_extraction.text import TfidfVectorizer
 import os
 
-from logger import logger
+from ML_Model_Copilot.logger import logger
 
 class FeatureExtraction:
     def __init__(self,input_path:str,artifacts_dir:str,max_features:int=8000, ngrams_range:tuple=(1,2),min_df:int=5,max_df:float=0.9):

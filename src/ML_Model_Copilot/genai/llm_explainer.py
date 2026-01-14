@@ -1,4 +1,4 @@
-from logger import logger 
+from ML_Model_Copilot.logger import logger 
 
 class llm_explainer:
     def __init__(self,llm_client):
@@ -29,11 +29,33 @@ class llm_explainer:
     
 class DummyLLMClient:
     def generate(self, prompt: str) -> str:
-        return (
-            "The review mentions noticeable improvement in symptoms, "
-            "such as reduced pain or relief, which signals effectiveness. "
-            "Although minor side effects may be present, the overall tone "
-            "leans positive, leading the model to classify it as positive."
-        )
+        if "Negative" in prompt:
+            return (
+                "The review emphasizes worsening symptoms and adverse side effects, "
+                "such as increased pain or discomfort, which strongly influenced the "
+                "model to classify the sentiment as negative."
+            )
+        else:
+            return (
+                "The review highlights symptom relief and therapeutic benefits, "
+                "indicating that the medication was effective overall, leading the "
+                "model to classify the sentiment as positive."
+            )
 
+
+class GENAIExplainer:
+    def __init__(self,llm_client):
+        self.llm_client=llm_client
         
+    def explain(self,text:str,sentiment:str,score:float)->str:
+        prompt=self._build_prompt(text,sentiment,score)
+        
+        return self.llm_client.generate(prompt)
+    
+    def _build_prompt(self,text:str,sentiment:str,score:float)->str:
+        return (
+            f"Text: {text}\n"
+            f"Predicted Sentiment: {sentiment}\n"
+            f"Model Score: {score:.3f}\n\n"
+            f"Explain in simple terms why this sentiment was predicted."
+        )

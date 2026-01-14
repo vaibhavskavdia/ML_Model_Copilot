@@ -2,7 +2,7 @@ import os
 import joblib
 import pandas as pd
 
-from logger import logger
+from ML_Model_Copilot.logger import logger
 
 
 class ErrorAnalyzer:

@@ -2,7 +2,7 @@ import re
 import string
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-from logger import logger
+from ML_Model_Copilot.logger import logger
 
 class TextCleaner:
     def __init__(self):

@@ -1,5 +1,5 @@
 import sys
-from logger import logging
+from ML_Model_Copilot.logger import logging
 
 def error_message_detail(error,error_detail:sys):
     _,_,exc_tb=error_detail.exc_info()
